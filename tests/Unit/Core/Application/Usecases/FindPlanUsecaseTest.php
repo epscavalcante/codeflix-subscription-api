@@ -71,6 +71,6 @@ describe('FindPlanUsecase Unit Test', function () {
         $input = new FindPlanUsecaseInput(
             id: $planId->getValue()
         );
-        $output = $usecase->execute($input);
+        $usecase->execute($input);
     })->throws(PlanNotFoundException::class);
 });

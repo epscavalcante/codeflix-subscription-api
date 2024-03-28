@@ -14,7 +14,7 @@ class FindPlanUsecaseOutput
     ) {
     }
 
-    public static function build(Plan $plan): self
+    public static function build(Plan $plan): FindPlanUsecaseOutput
     {
         return new FindPlanUsecaseOutput(
             planId: $plan->getId()->getValue(),
