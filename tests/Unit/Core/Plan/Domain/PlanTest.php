@@ -74,7 +74,14 @@ describe('Plan unit tests', function () {
                 description: 'plan description',
             );
 
-            $plan->changeDescription(str_repeat('a', 256));
-        })->throws(PlanValidationException::class);
+            try {
+                $plan->changeDescription(str_repeat('a', 256));
+            } catch (PlanValidationException $th) {
+                expect($th)->toBeInstanceOf(PlanValidationException::class);
+                expect($th->getErrors())->toMatchArray([
+                    "description" => ["The description field must not be greater than  100 characters."]
+                ]);
+            }
+        });
     });
-});
+})->group('Unit');

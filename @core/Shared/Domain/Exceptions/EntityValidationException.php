@@ -7,16 +7,17 @@ use Exception;
 class EntityValidationException extends Exception
 {
     public function __construct(
-        ?string $message,
-        public readonly array|string $error,
+        protected array|string $errors,
+        string $message = 'The Entity was invalid.',
     ) {
-        parent::__construct($message || 'The Entity was invalid.');
+        parent::__construct($message);
     }
 
     public function getErrors()
     {
-        return [
-            is_array($this->error) ? $this->error : [$this->error],
-        ];
+        if (is_array($this->errors))
+            return $this->errors;
+
+        return [$this->errors];
     }
 }
