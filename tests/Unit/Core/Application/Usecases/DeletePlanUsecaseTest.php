@@ -1,8 +1,8 @@
 <?php
 
+use Core\Plan\Application\Usecases\DeletePlanUsecase;
 use Core\Plan\Application\Usecases\Dto\DeletePlanUsecaseInput;
 use Core\Plan\Application\Usecases\Dto\DeletePlanUsecaseOutput;
-use Core\Plan\Application\Usecases\DeletePlanUsecase;
 use Core\Plan\Domain\Exceptions\PlanNotFoundException;
 use Core\Plan\Domain\Plan;
 use Core\Plan\Domain\Repositories\PlanRepositoryInterface;
