@@ -14,7 +14,7 @@ describe('PlanValidationExceptionUnitTestPlanValidationException', function () {
 
             expect($e->getMessage())->toBe('The Plan was invalid.');
             expect($e->getErrors())->toMatchArray([
-                'test' => 'Error'
+                'test' => 'Error',
             ]);
         }
     });
@@ -22,14 +22,13 @@ describe('PlanValidationExceptionUnitTestPlanValidationException', function () {
     test('should return errors when send array error ', function () {
         try {
             throw new PlanValidationException([
-                'test' =>
-                ['Error 1', 'Error 2'],
+                'test' => ['Error 1', 'Error 2'],
             ]);
         } catch (PlanValidationException $e) {
 
             expect($e->getMessage())->toBe('The Plan was invalid.');
             expect($e->getErrors())->toMatchArray([
-                'test' => ['Error 1', 'Error 2']
+                'test' => ['Error 1', 'Error 2'],
             ]);
         }
     });

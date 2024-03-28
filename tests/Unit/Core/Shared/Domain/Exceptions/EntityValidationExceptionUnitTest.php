@@ -7,14 +7,13 @@ describe('EntityValidationExceptionUnitTest', function () {
         throw new EntityValidationException(['test' => 'Error']);
     })->throws(EntityValidationException::class, 'The Entity was invalid.');
 
-
     test('should return errors when send string error ', function () {
         try {
             throw new EntityValidationException(['test' => 'Error']);
         } catch (EntityValidationException $e) {
             expect($e->getMessage())->toBe('The Entity was invalid.');
             expect($e->getErrors())->toMatchArray([
-                'test' => 'Error'
+                'test' => 'Error',
             ]);
         }
     });
@@ -27,7 +26,7 @@ describe('EntityValidationExceptionUnitTest', function () {
         } catch (EntityValidationException $e) {
             expect($e->getMessage())->toBe('The Entity was invalid.');
             expect($e->getErrors())->toMatchArray([
-                'test' => ['Error 1', 'Error 2']
+                'test' => ['Error 1', 'Error 2'],
             ]);
         }
     });

@@ -15,8 +15,9 @@ class EntityValidationException extends Exception
 
     public function getErrors()
     {
-        if (is_array($this->errors))
+        if (is_array($this->errors)) {
             return $this->errors;
+        }
 
         return [$this->errors];
     }

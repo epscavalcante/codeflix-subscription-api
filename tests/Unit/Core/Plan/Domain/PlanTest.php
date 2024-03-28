@@ -79,7 +79,7 @@ describe('Plan unit tests', function () {
             } catch (PlanValidationException $th) {
                 expect($th)->toBeInstanceOf(PlanValidationException::class);
                 expect($th->getErrors())->toMatchArray([
-                    "description" => ["The description field must not be greater than  100 characters."]
+                    'description' => ['The description field must not be greater than  100 characters.'],
                 ]);
             }
         });

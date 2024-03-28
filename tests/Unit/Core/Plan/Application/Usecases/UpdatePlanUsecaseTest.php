@@ -80,7 +80,7 @@ describe('UpdatePlanUsecase Unit Test', function () {
             $usecase->execute($input);
         } catch (PlanValidationException $th) {
             expect($th->getErrors())->toMatchArray([
-                'name' => ['The name field must not be greater than  100 characters.']
+                'name' => ['The name field must not be greater than  100 characters.'],
             ]);
         }
     });
