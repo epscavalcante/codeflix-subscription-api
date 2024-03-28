@@ -20,7 +20,7 @@ class CreatePlanUsecase
             name: $input->name,
             description: $input->description
         );
-        // verificar erros aqui?
+
         $this->planRepository->create($plan);
 
         return CreatePlanUsecaseOutput::build($plan);

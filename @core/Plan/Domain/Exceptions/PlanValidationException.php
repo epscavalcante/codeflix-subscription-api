@@ -7,11 +7,11 @@ use Core\Shared\Domain\Exceptions\EntityValidationException;
 class PlanValidationException extends EntityValidationException
 {
     public function __construct(
-        public readonly array $errors,
+        protected array|string $errors,
     ) {
         parent::__construct(
+            errors: $errors,
             message: 'The Plan was invalid.',
-            error: $errors
         );
     }
 }
