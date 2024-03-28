@@ -22,7 +22,6 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
         name: app
-        path: .
         compression-level: 9
 
   lint:
