@@ -10,7 +10,7 @@ class Plan extends Entity
 {
     protected Uuid $planId;
 
-    function __construct(
+    public function __construct(
         protected string $name,
         protected string $description,
         ?string $planId = null
@@ -47,8 +47,8 @@ class Plan extends Entity
     {
         $planValidator = PlanValidatorFactory::create();
         $planRules = new PlanRules($this);
-        $data =  $planRules->getData($field);
-        $rules =  $planRules->getRules($field);
+        $data = $planRules->getData($field);
+        $rules = $planRules->getRules($field);
 
         $planValidator->validate(
             notification: $this->notification,
@@ -60,7 +60,7 @@ class Plan extends Entity
             throw new PlanValidationException($this->notification->getErrors());
         }
 
-        return !$this->notification->hasErrors();
+        return ! $this->notification->hasErrors();
     }
 
     public function toArray(): array

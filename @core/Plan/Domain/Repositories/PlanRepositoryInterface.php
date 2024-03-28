@@ -14,13 +14,10 @@ interface PlanRepositoryInterface
     public function delete(Uuid $id): void;
 
     /**
-     * @return Array<Entity>
+     * @return array<Entity>
      */
     public function findAll(): array;
 
-    /**
-     * @param Uuid $id
-     */
     public function findById(Uuid $id): ?Plan;
 
     public function search(

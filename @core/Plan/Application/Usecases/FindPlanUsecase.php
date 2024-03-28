@@ -20,7 +20,9 @@ class FindPlanUsecase
         $planId = new Uuid(($input->id));
         $plan = $this->planRepository->findById($planId);
 
-        if (is_null($plan)) throw new PlanNotFoundException($planId);
+        if (is_null($plan)) {
+            throw new PlanNotFoundException($planId);
+        }
 
         return FindPlanUsecaseOutput::build($plan);
     }
