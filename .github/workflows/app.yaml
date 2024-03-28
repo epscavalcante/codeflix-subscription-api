@@ -23,7 +23,6 @@ jobs:
       with:
         name: app
         path: .
-        overwrite: true
         compression-level: 9
 
   lint:
