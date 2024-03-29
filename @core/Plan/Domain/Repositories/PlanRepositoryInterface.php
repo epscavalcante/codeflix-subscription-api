@@ -13,10 +13,12 @@ interface PlanRepositoryInterface
 
     public function delete(Uuid $id): void;
 
+    public function findById(Uuid $id): ?Plan;
+
     public function search(
-        ?string $filterBy = null,
+        ?string $filterBy,
         ?string $sortBy = null,
-        ?string $sortDir = 'DESC',
+        ?string $sortDir,
         ?int $page = 1,
         ?int $perPage = 10,
     ): SearchResultInterface;

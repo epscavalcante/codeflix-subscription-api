@@ -12,8 +12,8 @@ class ListPlanUsecaseOutput
         public readonly int $total,
         public readonly int $page,
         public readonly int $perPage,
-        public readonly int $previousPage,
-        public readonly int $nextPage,
+        public readonly ?int $previousPage,
+        public readonly ?int $nextPage,
         public readonly int $firstPage,
         public readonly int $lastPage,
     ) {

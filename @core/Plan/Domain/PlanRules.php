@@ -6,7 +6,7 @@ class PlanRules
 {
     private $rules = [
         'name' => ['required', 'string', 'max: 100'],
-        'description' => ['required', 'string', 'max: 100'],
+        'description' => ['required', 'string'],
     ];
 
     public function __construct(

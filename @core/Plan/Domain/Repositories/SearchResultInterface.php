@@ -15,9 +15,9 @@ interface SearchResultInterface
 
     public function perPage(): int;
 
-    public function previousPage(): int;
+    public function previousPage(): ?int;
 
-    public function nextPage(): int;
+    public function nextPage(): ?int;
 
     public function firstPage(): int;
 
