@@ -2,33 +2,28 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Presenters\PlanCollectionPresenter;
 use Core\Plan\Application\Usecases\Dto\ListPlanUsecaseInput;
 use Core\Plan\Application\Usecases\ListPlanUsecase;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 
 class PlanController extends Controller
 {
     public function list(Request $request, ListPlanUsecase $listUseCase)
     {
         $input = new ListPlanUsecaseInput(
-            filterBy: $request->get('filterBy', null),
-            sortBy: $request->get('sortBy'),
-            sortDir: $request->get('sortDir', null),
+            filterBy: $request->get('filter_by', null),
+            sortBy: $request->get('sort_by'),
+            sortDir: $request->get('sort_dir', null),
             page: $request->get('page', null),
-            perPage: $request->get('perPage', null),
+            perPage: $request->get('per_page', null),
         );
         $output = $listUseCase->execute($input);
+        $presenter = new PlanCollectionPresenter($output);
 
-        return response()->json([
-            'data' => $output->items,
-            'meta' => [
-                'page' => $output->page,
-                'per_page' => $output->perPage,
-                'next_page' => $output->nextPage,
-                'previous_page' => $output->previousPage,
-                'first_page' => $output->firstPage,
-                'last_page' => $output->lastPage,
-            ]
-        ], 200);
+        return $presenter->toJSON(
+            Response::HTTP_OK
+        );
     }
 }

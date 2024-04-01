@@ -19,7 +19,7 @@ class PlanFactory extends Factory
         return [
             'plan_id' => fake()->uuid(),
             'name' => fake()->company(),
-            'description' => fake()->sentences(rand(2, 4), true)
+            'description' => fake()->sentences(rand(2, 4), true),
         ];
     }
 }

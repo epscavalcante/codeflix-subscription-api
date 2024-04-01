@@ -4,7 +4,6 @@ use App\Models\Plan as PlanModel;
 use App\Repositories\Mappers\PlanEloquentRepositoryMapper;
 use App\Repositories\PlanEloquentRepository;
 use Core\Plan\Domain\Exceptions\PlanNotFoundException;
-use Core\Plan\Domain\Exceptions\PlanValidationException;
 use Core\Plan\Domain\Plan;
 use Core\Plan\Domain\Repositories\SearchResult;
 use Core\Shared\Domain\Uuid;
@@ -12,7 +11,7 @@ use Illuminate\Database\Eloquent\Factories\Sequence;
 
 beforeEach(function () {
     /**
-     * @var PlanRepositoryInterface $planRepository
+     * @var PlanEloquentRepository $planRepository
      */
     $this->planRepository = new PlanEloquentRepository(new PlanModel());
 });
@@ -101,7 +100,7 @@ describe('Plan Eloquent Repository', function () {
         test('Deve paginar e order os planos', function () {
             PlanModel::factory()
                 ->count(10)
-                ->sequence(fn (Sequence $sequence) => ['name' => 'Name ' . $sequence->index])
+                ->sequence(fn (Sequence $sequence) => ['name' => 'Name '.$sequence->index])
                 ->create();
 
             $result = $this->planRepository->search(

@@ -8,7 +8,7 @@ use Core\Shared\Domain\Uuid;
 
 class PlanEloquentRepositoryMapper
 {
-    static function toModel(Plan $plan): PlanModel
+    public static function toModel(Plan $plan): PlanModel
     {
         $model = new PlanModel();
         $model->plan_id = $plan->getId()->getValue();
@@ -18,7 +18,7 @@ class PlanEloquentRepositoryMapper
         return $model;
     }
 
-    static function toEntity(PlanModel $model): Plan
+    public static function toEntity(PlanModel $model): Plan
     {
         return new Plan(
             planId: new Uuid($model->plan_id),

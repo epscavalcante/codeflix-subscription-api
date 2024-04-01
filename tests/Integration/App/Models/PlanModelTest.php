@@ -29,7 +29,7 @@ describe('Plan Model Unit Tests', function () {
         expect($planModel->getFillable())->toMatchArray([
             'plan_id',
             'name',
-            'description'
+            'description',
         ]);
     });
 

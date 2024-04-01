@@ -16,9 +16,9 @@ interface PlanRepositoryInterface
     public function findById(Uuid $id): ?Plan;
 
     public function search(
-        ?string $filterBy,
+        ?string $filterBy = null,
         ?string $sortBy = null,
-        ?string $sortDir,
+        ?string $sortDir = null,
         ?int $page = 1,
         ?int $perPage = 10,
     ): SearchResultInterface;

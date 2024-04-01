@@ -2,13 +2,13 @@
 
 namespace App\Repositories;
 
-use Core\Plan\Domain\Plan;
-use Core\Plan\Domain\Repositories\PlanRepositoryInterface;
-use Core\Plan\Domain\Repositories\SearchResultInterface;
 use App\Models\Plan as PlanModel;
 use App\Repositories\Mappers\PlanEloquentRepositoryMapper;
 use Core\Plan\Domain\Exceptions\PlanNotFoundException;
+use Core\Plan\Domain\Plan;
+use Core\Plan\Domain\Repositories\PlanRepositoryInterface;
 use Core\Plan\Domain\Repositories\SearchResult;
+use Core\Plan\Domain\Repositories\SearchResultInterface;
 use Core\Shared\Domain\Uuid;
 
 class PlanEloquentRepository implements PlanRepositoryInterface
@@ -29,7 +29,9 @@ class PlanEloquentRepository implements PlanRepositoryInterface
     {
         $planModel = $this->model->find($plan->getId());
 
-        if (!$planModel) throw new PlanNotFoundException($plan->getId());
+        if (! $planModel) {
+            throw new PlanNotFoundException($plan->getId());
+        }
 
         $modelProps = PlanEloquentRepositoryMapper::toModel($plan);
 
@@ -40,7 +42,9 @@ class PlanEloquentRepository implements PlanRepositoryInterface
     {
         $planModel = $this->model->find($planId);
 
-        if (!$planModel) throw new PlanNotFoundException($planId);
+        if (! $planModel) {
+            throw new PlanNotFoundException($planId);
+        }
 
         $planModel->delete();
     }
@@ -49,16 +53,17 @@ class PlanEloquentRepository implements PlanRepositoryInterface
     {
         $planModel = $this->model->find($planId);
 
-        if ($planModel)
+        if ($planModel) {
             return PlanEloquentRepositoryMapper::toEntity($planModel);
+        }
 
         return null;
     }
 
     public function search(
-        ?string $filterBy,
+        ?string $filterBy = null,
         ?string $sortBy = 'name',
-        ?string $sortDir,
+        ?string $sortDir = null,
         ?int $page = 1,
         ?int $perPage = 10,
     ): SearchResultInterface {
