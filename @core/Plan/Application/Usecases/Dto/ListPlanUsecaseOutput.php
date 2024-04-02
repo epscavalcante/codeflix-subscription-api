@@ -4,6 +4,7 @@ namespace Core\Plan\Application\Usecases\Dto;
 
 use Core\Plan\Domain\Plan;
 use Core\Plan\Domain\Repositories\SearchResult;
+use stdClass;
 
 class ListPlanUsecaseOutput
 {
@@ -12,8 +13,8 @@ class ListPlanUsecaseOutput
         public readonly int $total,
         public readonly int $page,
         public readonly int $perPage,
-        public readonly int $previousPage,
-        public readonly int $nextPage,
+        public readonly ?int $previousPage,
+        public readonly ?int $nextPage,
         public readonly int $firstPage,
         public readonly int $lastPage,
     ) {
@@ -21,10 +22,18 @@ class ListPlanUsecaseOutput
 
     public static function build(SearchResult $searchResult): ListPlanUsecaseOutput
     {
-        $items = array_map(fn ($plan) => self::buildItemPlan($plan), $searchResult->items());
-
         return new ListPlanUsecaseOutput(
-            items: $items,
+            items: array_map(
+                callback: function (Plan $plan) {
+                    $planOutput = new stdClass;
+                    $planOutput->planId = $plan->getId()->getValue();
+                    $planOutput->name = $plan->name;
+                    $planOutput->description = $plan->description;
+
+                    return $planOutput;
+                },
+                array: $searchResult->items()
+            ),
             total: $searchResult->total(),
             page: $searchResult->page(),
             perPage: $searchResult->perPage(),
@@ -33,14 +42,5 @@ class ListPlanUsecaseOutput
             firstPage: $searchResult->firstPage(),
             lastPage: $searchResult->lastPage(),
         );
-    }
-
-    private static function buildItemPlan(Plan $plan): array
-    {
-        return [
-            'planId' => $plan->getId(),
-            'name' => $plan->name,
-            'description' => $plan->description,
-        ];
     }
 }

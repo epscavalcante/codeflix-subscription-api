@@ -11,8 +11,8 @@ class SearchResult implements SearchResultInterface
         private readonly int $total,
         private readonly int $page,
         private readonly int $perPage,
-        private readonly int $previousPage,
-        private readonly int $nextPage,
+        private readonly ?int $previousPage,
+        private readonly ?int $nextPage,
         private readonly int $firstPage,
         private readonly int $lastPage,
     ) {
@@ -41,19 +41,19 @@ class SearchResult implements SearchResultInterface
         return $this->perPage;
     }
 
-    public function previousPage(): int
+    public function previousPage(): ?int
     {
         return $this->previousPage;
     }
 
-    public function nextPage(): int
+    public function nextPage(): ?int
     {
         return $this->nextPage;
     }
 
     public function firstPage(): int
     {
-        return $this->firstPage;
+        return $this->firstPage ?? 1;
     }
 
     public function lastPage(): int
