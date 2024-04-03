@@ -8,8 +8,8 @@ use Core\Shared\Domain\Uuid;
 
 class PlanNotFoundException extends EntityNotFoundException
 {
-    public function __construct(Uuid $saleId)
+    public function __construct(Uuid $planId)
     {
-        parent::__construct(Plan::class, $saleId);
+        parent::__construct(Plan::class, $planId);
     }
 }
