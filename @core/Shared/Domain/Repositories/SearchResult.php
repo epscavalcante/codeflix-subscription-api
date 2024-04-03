@@ -2,7 +2,7 @@
 
 namespace Core\Shared\Domain\Repositories;
 
-class SearchResult implements SearchResultInterface
+abstract class SearchResult implements SearchResultInterface
 {
     public function __construct(
         private readonly array $items,

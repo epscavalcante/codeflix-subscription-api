@@ -7,8 +7,8 @@ use App\Repositories\Mappers\PlanEloquentRepositoryMapper;
 use Core\Plan\Domain\Exceptions\PlanNotFoundException;
 use Core\Plan\Domain\Plan;
 use Core\Plan\Domain\Repositories\PlanRepositoryInterface;
-use Core\Shared\Domain\Repositories\SearchResult;
-use Core\Shared\Domain\Repositories\SearchResultInterface;
+use Core\Plan\Domain\Repositories\PlanSearchResult;
+use Core\Plan\Domain\Repositories\PlanSearchResultInterface;
 use Core\Shared\Domain\Uuid;
 
 class PlanEloquentRepository implements PlanRepositoryInterface
@@ -78,7 +78,7 @@ class PlanEloquentRepository implements PlanRepositoryInterface
         ?string $sortDir = null,
         ?int $page = 1,
         ?int $perPage = 10,
-    ): SearchResultInterface {
+    ): PlanSearchResult {
 
         $result = $this->model::query()
             //implements a filter using laravel scout
@@ -88,7 +88,7 @@ class PlanEloquentRepository implements PlanRepositoryInterface
                 page: $page
             );
 
-        return new SearchResult(
+        return new PlanSearchResult(
             items: array_map(fn ($planModel) => (PlanEloquentRepositoryMapper::toEntity($planModel)), $result->items()),
             total: $result->total(),
             page: $result->currentPage(),
