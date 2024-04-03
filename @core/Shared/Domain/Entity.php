@@ -13,7 +13,7 @@ abstract class Entity
 
     abstract public function getId(): Uuid;
 
-    abstract public function validate(?string $field = null): bool;
+    abstract public function validate(): void;
 
     abstract public function toArray(): array;
 

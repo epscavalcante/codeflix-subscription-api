@@ -4,5 +4,11 @@ namespace Core\Shared\Domain;
 
 interface ValidatorContract
 {
-    public function validate(Notification $notification, array $data, array $fields): bool;
+    /**
+     * @param  Entity  $entity
+     */
+    public function validate(
+        object $entity,
+        array $rules
+    );
 }
