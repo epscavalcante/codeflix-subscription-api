@@ -3,7 +3,7 @@
 namespace Core\Plan\Application\Usecases\Dto;
 
 use Core\Plan\Domain\Plan;
-use Core\Plan\Domain\Repositories\SearchResult;
+use Core\Plan\Domain\Repositories\PlanSearchResult as SearchResult;
 use stdClass;
 
 class ListPlanUsecaseOutput
