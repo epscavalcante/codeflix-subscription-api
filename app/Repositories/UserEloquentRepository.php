@@ -2,71 +2,71 @@
 
 namespace App\Repositories;
 
-use App\Models\Plan as PlanModel;
-use App\Repositories\Mappers\PlanEloquentRepositoryMapper;
-use Core\Plan\Domain\Exceptions\PlanNotFoundException;
-use Core\Plan\Domain\Plan;
-use Core\Plan\Domain\Repositories\PlanRepositoryInterface;
+use App\Models\User as UserModel;
+use App\Repositories\Mappers\UserEloquentRepositoryMapper;
 use Core\Shared\Domain\Repositories\SearchResult;
 use Core\Shared\Domain\Repositories\SearchResultInterface;
 use Core\Shared\Domain\Uuid;
+use Core\User\Domain\Exceptions\UserNotFoundException;
+use Core\User\Domain\Repositories\UserRepositoryInterface;
+use Core\User\Domain\User;
 
-class PlanEloquentRepository implements PlanRepositoryInterface
+class UserEloquentRepository implements UserRepositoryInterface
 {
     public function __construct(
-        private readonly PlanModel $model
+        private readonly UserModel $model
     ) {
     }
 
     /**
-     * @param  Plan  $plan
+     * @param User $entity
      */
-    public function create(object $plan): void
+    public function create(object $entity): void
     {
-        $modelProps = PlanEloquentRepositoryMapper::toModel($plan);
+        $modelProps = UserEloquentRepositoryMapper::toModel((object) $entity);
 
         $this->model->create($modelProps->toArray());
     }
 
     /**
-     * @param  Plan  $plan
+     * @param User $entity
      */
-    public function update(object $plan): void
+    public function update(object $user): void
     {
-        $planModel = $this->model->find($plan->getId());
+        $userModel = $this->model->find($user->getId());
 
-        if (! $planModel) {
-            throw new PlanNotFoundException($plan->getId());
+        if (! $userModel) {
+            throw new UserNotFoundException($user->getId());
         }
 
-        $modelProps = PlanEloquentRepositoryMapper::toModel($plan);
+        $modelProps = UserEloquentRepositoryMapper::toModel((object) $user);
 
-        $planModel->update($modelProps->toArray());
+        $userModel->update($modelProps->toArray());
     }
 
     /**
-     * @param  Uuid  $id
+     * @param Uuid $id
      */
     public function delete(object $id): void
     {
-        $planModel = $this->model->find($id);
+        $userModel = $this->model->find($id);
 
-        if (! $planModel) {
-            throw new PlanNotFoundException($id);
+        if (! $userModel) {
+            throw new UserNotFoundException($id);
         }
 
-        $planModel->delete();
+        $userModel->delete();
     }
 
     /**
      * @param  Uuid  $id
      */
-    public function findById(object $id): ?Plan
+    public function findById(object $id): ?User
     {
-        $planModel = $this->model->find($id);
+        $userModel = $this->model->find($id);
 
-        if ($planModel) {
-            return PlanEloquentRepositoryMapper::toEntity($planModel);
+        if ($userModel) {
+            return UserEloquentRepositoryMapper::toEntity($userModel);
         }
 
         return null;
@@ -89,11 +89,10 @@ class PlanEloquentRepository implements PlanRepositoryInterface
             );
 
         return new SearchResult(
-            items: array_map(fn ($planModel) => (PlanEloquentRepositoryMapper::toEntity($planModel)), $result->items()),
+            items: array_map(fn ($userModel) => (UserEloquentRepositoryMapper::toEntity($userModel)), $result->items()),
             total: $result->total(),
             page: $result->currentPage(),
             perPage: $result->perPage(),
-
             previousPage: $result->currentPage() > 1
                 ? $result->currentPage() - 1
                 : null,
