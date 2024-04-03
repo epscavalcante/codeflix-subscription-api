@@ -24,7 +24,7 @@ class Plan extends Entity
     {
         $this->name = $name;
 
-        $this->validate('name');
+        $this->validate();
 
         return $this;
     }
@@ -33,7 +33,7 @@ class Plan extends Entity
     {
         $this->description = $description;
 
-        $this->validate('description');
+        $this->validate();
 
         return $this;
     }
@@ -43,30 +43,24 @@ class Plan extends Entity
         return $this->planId;
     }
 
-    public function validate(?string $field = null): bool
+    public function validate(): void
     {
         $planValidator = PlanValidatorFactory::create();
-        $planRules = new PlanRules($this);
-        $data = $planRules->getData($field);
-        $rules = $planRules->getRules($field);
 
         $planValidator->validate(
-            notification: $this->notification,
-            data: $data,
-            rules: $rules,
+            entity: $this,
+            rules: PlanRules::RULES
         );
 
         if ($this->notification->hasErrors()) {
             throw new PlanValidationException($this->notification->getErrors());
         }
-
-        return ! $this->notification->hasErrors();
     }
 
     public function toArray(): array
     {
         return [
-            'planId' => $this->getId(),
+            'planId' => $this->getId()->getValue(),
             'name' => $this->name,
             'description' => $this->description,
         ];

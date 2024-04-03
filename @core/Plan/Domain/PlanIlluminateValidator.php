@@ -3,12 +3,14 @@
 namespace Core\Plan\Domain;
 
 use Core\Shared\Domain\IlluminateValidator;
-use Core\Shared\Domain\Notification;
 
 class PlanIlluminateValidator extends IlluminateValidator
 {
-    public function validate(Notification $notification, $data, array $rules): bool
+    /**
+     * @param  Plan  $entity
+     */
+    public function validate(object $entity, array $rules): void
     {
-        return parent::validate($notification, $data, $rules);
+        parent::validate($entity, $rules);
     }
 }
