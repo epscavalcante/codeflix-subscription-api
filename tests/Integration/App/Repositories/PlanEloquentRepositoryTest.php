@@ -5,7 +5,7 @@ use App\Repositories\Mappers\PlanEloquentRepositoryMapper;
 use App\Repositories\PlanEloquentRepository;
 use Core\Plan\Domain\Exceptions\PlanNotFoundException;
 use Core\Plan\Domain\Plan;
-use Core\Plan\Domain\Repositories\SearchResult;
+use Core\Shared\Domain\Repositories\SearchResult;
 use Core\Shared\Domain\Uuid;
 use Illuminate\Database\Eloquent\Factories\Sequence;
 
