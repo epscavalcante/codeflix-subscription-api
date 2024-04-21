@@ -9,6 +9,8 @@ use Core\Shared\Domain\Repositories\SearchResult;
 use Core\Shared\Domain\Uuid;
 use Illuminate\Database\Eloquent\Factories\Sequence;
 
+use function Pest\Laravel\assertDatabaseHas;
+
 beforeEach(function () {
     /**
      * @var PlanEloquentRepository $planRepository
@@ -23,6 +25,13 @@ describe('Plan Eloquent Repository', function () {
         $this->planRepository->create($plan);
 
         expect(PlanModel::count())->toBe(1);
+        assertDatabaseHas(
+            table: 'plans',
+            data: [
+                'plan_id' => $plan->getId()->getValue(),
+            ]
+        );
+
         $planModel = PlanModel::first();
         expect($planModel->plan_id)->tobe($plan->getId()->getValue());
         expect($planModel->plan_id)->tobe($plan->getId()->getValue());
@@ -100,7 +109,7 @@ describe('Plan Eloquent Repository', function () {
         test('Deve paginar e order os planos', function () {
             PlanModel::factory()
                 ->count(10)
-                ->sequence(fn (Sequence $sequence) => ['name' => 'Name '.$sequence->index])
+                ->sequence(fn (Sequence $sequence) => ['name' => 'Name ' . $sequence->index])
                 ->create();
 
             $result = $this->planRepository->search(
