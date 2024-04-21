@@ -3,10 +3,10 @@
 use App\Models\User as UserModel;
 use App\Repositories\Mappers\UserEloquentRepositoryMapper;
 use App\Repositories\UserEloquentRepository;
-use Core\User\Domain\Exceptions\UserNotFoundException;
-use Core\User\Domain\User;
-use Core\User\Domain\Repositories\UserSearchResult;
 use Core\Shared\Domain\Uuid;
+use Core\User\Domain\Exceptions\UserNotFoundException;
+use Core\User\Domain\Repositories\UserSearchResult;
+use Core\User\Domain\User;
 use Core\User\Domain\ValueObjects\Birthdate;
 use Core\User\Domain\ValueObjects\Cpf;
 use Core\User\Domain\ValueObjects\Email;
@@ -92,7 +92,7 @@ describe('User Eloquent Repository', function () {
         test('Deve atualizar um plano', function () {
             $UserModel = UserModel::factory()->create();
             $user = UserEloquentRepositoryMapper::toEntity($UserModel);
-            $user->changeName('User ed', "Updated");
+            $user->changeName('User ed', 'Updated');
             $this->userRepository->update($user);
 
             $userUpdated = UserModel::find($user->getId());
@@ -121,7 +121,7 @@ describe('User Eloquent Repository', function () {
         test('Deve paginar e order os planos', function () {
             UserModel::factory()
                 ->count(10)
-                ->sequence(fn (Sequence $sequence) => ['first_name' => 'Name ' . $sequence->index])
+                ->sequence(fn (Sequence $sequence) => ['first_name' => 'Name '.$sequence->index])
                 ->create();
 
             $result = $this->userRepository->search(

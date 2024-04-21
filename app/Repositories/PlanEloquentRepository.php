@@ -8,7 +8,6 @@ use Core\Plan\Domain\Exceptions\PlanNotFoundException;
 use Core\Plan\Domain\Plan;
 use Core\Plan\Domain\Repositories\PlanRepositoryInterface;
 use Core\Plan\Domain\Repositories\PlanSearchResult;
-use Core\Plan\Domain\Repositories\PlanSearchResultInterface;
 use Core\Shared\Domain\Uuid;
 
 class PlanEloquentRepository implements PlanRepositoryInterface

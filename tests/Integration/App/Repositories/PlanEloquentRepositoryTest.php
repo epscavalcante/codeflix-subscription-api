@@ -109,7 +109,7 @@ describe('Plan Eloquent Repository', function () {
         test('Deve paginar e order os planos', function () {
             PlanModel::factory()
                 ->count(10)
-                ->sequence(fn (Sequence $sequence) => ['name' => 'Name ' . $sequence->index])
+                ->sequence(fn (Sequence $sequence) => ['name' => 'Name '.$sequence->index])
                 ->create();
 
             $result = $this->planRepository->search(

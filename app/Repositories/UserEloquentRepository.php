@@ -18,7 +18,7 @@ class UserEloquentRepository implements UserRepositoryInterface
     }
 
     /**
-     * @param User $entity
+     * @param  User  $entity
      */
     public function create(object $entity): void
     {
@@ -28,7 +28,7 @@ class UserEloquentRepository implements UserRepositoryInterface
     }
 
     /**
-     * @param User $entity
+     * @param  User  $entity
      */
     public function update(object $user): void
     {
@@ -44,7 +44,7 @@ class UserEloquentRepository implements UserRepositoryInterface
     }
 
     /**
-     * @param Uuid $id
+     * @param  Uuid  $id
      */
     public function delete(object $id): void
     {
