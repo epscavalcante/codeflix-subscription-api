@@ -2,11 +2,12 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Plan extends Model
 {
-    use HasFactory;
+    use HasFactory, HasUuids;
 
     /**
      * Get the primary key for the model.
