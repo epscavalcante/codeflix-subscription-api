@@ -2,6 +2,9 @@ name: CI/CD
 
 on: [push]
 
+env:
+  IMAGE_NAME: epscavalcante/codeflix-subscription-api
+
 jobs:
   build:
     runs-on: ubuntu-latest
