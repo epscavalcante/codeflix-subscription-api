@@ -5,7 +5,7 @@ use Core\Plan\Application\Usecases\Dto\ListPlanUsecaseOutput;
 use Core\Plan\Application\Usecases\ListPlanUsecase;
 use Core\Plan\Domain\Plan;
 use Core\Plan\Domain\Repositories\PlanRepositoryInterface;
-use Core\Plan\Domain\Repositories\SearchResult;
+use Core\Plan\Domain\Repositories\PlanSearchResult as SearchResult;
 
 describe('ListPlanUsecase Unit Test', function () {
     test('Deve listar os planos com valores default', function () {

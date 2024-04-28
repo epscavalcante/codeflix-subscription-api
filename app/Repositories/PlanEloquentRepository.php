@@ -7,8 +7,7 @@ use App\Repositories\Mappers\PlanEloquentRepositoryMapper;
 use Core\Plan\Domain\Exceptions\PlanNotFoundException;
 use Core\Plan\Domain\Plan;
 use Core\Plan\Domain\Repositories\PlanRepositoryInterface;
-use Core\Plan\Domain\Repositories\SearchResult;
-use Core\Plan\Domain\Repositories\SearchResultInterface;
+use Core\Plan\Domain\Repositories\PlanSearchResult;
 use Core\Shared\Domain\Uuid;
 
 class PlanEloquentRepository implements PlanRepositoryInterface
@@ -18,14 +17,20 @@ class PlanEloquentRepository implements PlanRepositoryInterface
     ) {
     }
 
-    public function create(Plan $plan): void
+    /**
+     * @param  Plan  $plan
+     */
+    public function create(object $plan): void
     {
         $modelProps = PlanEloquentRepositoryMapper::toModel($plan);
 
         $this->model->create($modelProps->toArray());
     }
 
-    public function update(Plan $plan): void
+    /**
+     * @param  Plan  $plan
+     */
+    public function update(object $plan): void
     {
         $planModel = $this->model->find($plan->getId());
 
@@ -38,20 +43,26 @@ class PlanEloquentRepository implements PlanRepositoryInterface
         $planModel->update($modelProps->toArray());
     }
 
-    public function delete(Uuid $planId): void
+    /**
+     * @param  Uuid  $id
+     */
+    public function delete(object $id): void
     {
-        $planModel = $this->model->find($planId);
+        $planModel = $this->model->find($id);
 
         if (! $planModel) {
-            throw new PlanNotFoundException($planId);
+            throw new PlanNotFoundException($id);
         }
 
         $planModel->delete();
     }
 
-    public function findById(Uuid $planId): ?Plan
+    /**
+     * @param  Uuid  $id
+     */
+    public function findById(object $id): ?Plan
     {
-        $planModel = $this->model->find($planId);
+        $planModel = $this->model->find($id);
 
         if ($planModel) {
             return PlanEloquentRepositoryMapper::toEntity($planModel);
@@ -66,7 +77,7 @@ class PlanEloquentRepository implements PlanRepositoryInterface
         ?string $sortDir = null,
         ?int $page = 1,
         ?int $perPage = 10,
-    ): SearchResultInterface {
+    ): PlanSearchResult {
 
         $result = $this->model::query()
             //implements a filter using laravel scout
@@ -76,7 +87,7 @@ class PlanEloquentRepository implements PlanRepositoryInterface
                 page: $page
             );
 
-        return new SearchResult(
+        return new PlanSearchResult(
             items: array_map(fn ($planModel) => (PlanEloquentRepositoryMapper::toEntity($planModel)), $result->items()),
             total: $result->total(),
             page: $result->currentPage(),

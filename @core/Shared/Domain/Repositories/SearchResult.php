@@ -1,10 +1,8 @@
 <?php
 
-namespace Core\Plan\Domain\Repositories;
+namespace Core\Shared\Domain\Repositories;
 
-use Core\Plan\Domain\Plan;
-
-class SearchResult implements SearchResultInterface
+abstract class SearchResult implements SearchResultInterface
 {
     public function __construct(
         private readonly array $items,
@@ -19,7 +17,7 @@ class SearchResult implements SearchResultInterface
     }
 
     /**
-     * @return array<Plan>
+     * @return array<Entity>
      */
     public function items(): array
     {

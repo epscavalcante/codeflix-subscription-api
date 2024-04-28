@@ -1,11 +1,13 @@
 <?php
 
-namespace Core\Plan\Domain\Repositories;
+namespace Core\Shared\Domain\Repositories;
+
+use Core\Shared\Domain\Entity;
 
 interface SearchResultInterface
 {
     /**
-     * @return array<Plan>
+     * @return array<Entity>
      */
     public function items(): array;
 

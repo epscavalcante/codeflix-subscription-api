@@ -5,9 +5,11 @@ use App\Repositories\Mappers\PlanEloquentRepositoryMapper;
 use App\Repositories\PlanEloquentRepository;
 use Core\Plan\Domain\Exceptions\PlanNotFoundException;
 use Core\Plan\Domain\Plan;
-use Core\Plan\Domain\Repositories\SearchResult;
+use Core\Shared\Domain\Repositories\SearchResult;
 use Core\Shared\Domain\Uuid;
 use Illuminate\Database\Eloquent\Factories\Sequence;
+
+use function Pest\Laravel\assertDatabaseHas;
 
 beforeEach(function () {
     /**
@@ -23,6 +25,13 @@ describe('Plan Eloquent Repository', function () {
         $this->planRepository->create($plan);
 
         expect(PlanModel::count())->toBe(1);
+        assertDatabaseHas(
+            table: 'plans',
+            data: [
+                'plan_id' => $plan->getId()->getValue(),
+            ]
+        );
+
         $planModel = PlanModel::first();
         expect($planModel->plan_id)->tobe($plan->getId()->getValue());
         expect($planModel->plan_id)->tobe($plan->getId()->getValue());

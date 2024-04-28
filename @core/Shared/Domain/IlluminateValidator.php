@@ -6,19 +6,20 @@ use Illuminate\Support\Facades\Validator;
 
 class IlluminateValidator implements ValidatorContract
 {
-    public function validate(Notification $notification, array $data, array $rules): bool
+    /**
+     * @param  Entity  $entity
+     */
+    public function validate(object $entity, array $rules): void
     {
-        $validator = Validator::make($data, $rules);
+        $validator = Validator::make($entity->toArray(), $rules);
         $fails = $validator->fails();
 
         if ($fails) {
             foreach ($validator->errors()->toArray() as $field => $errors) {
                 foreach ($errors as $error) {
-                    $notification->addError($error, $field);
+                    $entity->notification->addError($error, $field);
                 }
             }
         }
-
-        return $fails;
     }
 }

@@ -1,13 +1,13 @@
 <?php
 
-namespace Core\Plan\Domain\Repositories;
+namespace Core\User\Domain\Repositories;
 
 use Core\Shared\Domain\Repositories\RepositoryInterface;
 
-interface PlanRepositoryInterface extends RepositoryInterface
+interface UserRepositoryInterface extends RepositoryInterface
 {
     /**
-     * @param  Plan  $entity
+     * @param  User  $entity
      */
     public function create(object $entity): void;
 }
