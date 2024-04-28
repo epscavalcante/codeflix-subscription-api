@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: codeflix-subscription-api
+  labels:
+    app: codeflix-subscription-api
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: codeflix-subscription-api
+  template:
+    metadata:
+      labels:
+        app: codeflix-subscription-api
+    spec:
+      containers:
+      - name: codeflix-subscription-api
+        image: epscavalcante/codeflix-subscription-api:latest
+        # imagePullPolicy: Always
+        ports:
+          - containerPort: 9000
+
+        env:
+          - name: APP_KEY
+            value: "base64:5hUT8JaDhUraGy1bJBXD7cr5qsXX0/w/m6eOos4CVM8="
+        resources:
+          limits:
+            cpu: "0.1"
+            memory: "128Mi"

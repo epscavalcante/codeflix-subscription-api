@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: codeflix-subscription-api-service
+spec:
+  type: ClusterIP
+  selector:
+    app: codeflix-subscription-api
+  ports:
+    - port: 9000
+      targetPort: 9000
